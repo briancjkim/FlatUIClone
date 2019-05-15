@@ -1,0 +1,10 @@
+.Colorbox {
+  /* 5열 4줄 */
+  /* 친부모에 높이값이존재해야함 */
+  width: 20%;
+  height: 25%;
+  display: inline-block;
+  margin: 0 auto;
+  cursor: pointer;
+  position: relative;
+}
