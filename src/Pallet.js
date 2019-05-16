@@ -1,39 +1,40 @@
 import React, { Component } from "react";
 import ColorBox from "./ColorBox";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
-// position last due to rc-slide default classname
+import Navbar from "./Navbar";
+
 import "./Pallet.css";
 
 export class Pallet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      level: 500
+      level: 500,
+      format: "hex"
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeLevel = this.handleChangeLevel.bind(this);
+    this.handleChangeFormat = this.handleChangeFormat.bind(this);
   }
-  handleChange(level) {
+  handleChangeLevel(level) {
     this.setState({ level });
+  }
+  handleChangeFormat(value) {
+    this.setState({
+      format: value
+    });
   }
   render() {
     const { colors } = this.props.pallet;
-    const { level } = this.state;
+    const { level, format } = this.state;
     const colorBoxes = colors[level].map(c => (
-      <ColorBox key={c.name} background={c.hex} name={c.name} />
+      <ColorBox key={c.name} background={c[format]} name={c.name} />
     ));
     return (
       <div className="Pallet">
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            onChange={this.handleChange}
-            min={100}
-            max={900}
-            step={100}
-          />
-        </div>
-
+        <Navbar
+          level={level}
+          handleChangeFormat={this.handleChangeFormat}
+          handleChangeLevel={this.handleChangeLevel}
+        />
         <div className="Pallet-colors"> {colorBoxes}</div>
         {/* footer */}
       </div>
