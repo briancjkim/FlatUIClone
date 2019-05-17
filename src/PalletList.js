@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import MiniPallet from "./MiniPallet";
 
 export class PalletList extends Component {
   render() {
     const { pallets } = this.props;
     const list = pallets.map(pallet => (
-      <p>
-        {" "}
+      <p key={pallet.id}>
         <Link to={`/pallet/${pallet.id}`}>{pallet.paletteName}</Link>
       </p>
     ));
-    return <div>{list}</div>;
+    return (
+      <div>
+        <MiniPallet />
+        {list}
+      </div>
+    );
   }
 }
 
