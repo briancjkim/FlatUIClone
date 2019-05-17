@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -14,7 +15,13 @@ const styles = {
     }
   },
   colors: {
-    backgroundColor: "grey"
+    height: "100px",
+    width: "100%",
+    borderRadius: "5px",
+    backgroundColor: "#dae1e4",
+    overflow: "hidden",
+    // solve a gap caused by inline-blocks
+    fontSize: 0
   },
   title: {
     display: "flex",
@@ -29,18 +36,34 @@ const styles = {
   emoji: {
     fontSize: "1.5rem",
     marginLeft: "0,5rem"
+  },
+  miniColor: {
+    width: "20%",
+    height: "25%",
+    display: "inline-block",
+    margin: "0 auto",
+    position: "relative"
   }
 };
 function MiniPallet(props) {
   // props에 classes항목이 추가된다
-  const { classes, paletteName, emoji } = props;
+  const { classes, paletteName, id, emoji, colors } = props;
+  const miniColorBoxes = colors.map(c => (
+    <div
+      key={c.name}
+      className={classes.miniColor}
+      style={{ backgroundColor: c.color }}
+    />
+  ));
   return (
-    <div className={classes.root}>
-      <div className={classes.colors}>colors</div>
-      <h5 className={classes.title}>
-        {paletteName} <span className={classes.emoji}>{emoji}</span>
-      </h5>
-    </div>
+    <Link to={`/pallet/${id}`}>
+      <div className={classes.root}>
+        <div className={classes.colors}>{miniColorBoxes}</div>
+        <h5 className={classes.title}>
+          {paletteName} <span className={classes.emoji}>{emoji}</span>
+        </h5>
+      </div>
+    </Link>
   );
 }
 export default withStyles(styles)(MiniPallet);

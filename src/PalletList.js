@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/styles";
 const styles = {
   root: {
     backgroundColor: "blue",
-    height: "100%",
+    height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start"
@@ -23,7 +23,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    color: "white"
+    fontSize: "1.5rem"
   },
   pallets: {
     boxSizing: "border-box",
