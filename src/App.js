@@ -4,6 +4,7 @@ import Pallet from "./Pallet";
 import { generatePallet } from "./colorHelpers";
 import { Route, Switch } from "react-router-dom";
 import PalletList from "./PalletList";
+import SinglePallet from "./SinglePallet";
 
 class App extends React.Component {
   // find pallet with id and pass to component as props in route.
@@ -17,7 +18,9 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={() => <PalletList pallets={seedColors} />}
+            render={routeProps => (
+              <PalletList {...routeProps} pallets={seedColors} />
+            )}
           />
           <Route
             exact
@@ -30,6 +33,11 @@ class App extends React.Component {
                 )}
               />
             )}
+          />
+          <Route
+            exact
+            path="/pallet/:palletId/:colorId"
+            render={() => <SinglePallet />}
           />
         </Switch>
       </div>

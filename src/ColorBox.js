@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Link } from "react-router-dom";
+
 import "./ColorBox.css";
 
 export default class ColorBox extends Component {
@@ -22,7 +24,7 @@ export default class ColorBox extends Component {
     );
   }
   render() {
-    const { name, background } = this.props;
+    const { name, background, moreUrl } = this.props;
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.handleCopy}>
@@ -40,7 +42,10 @@ export default class ColorBox extends Component {
               <span>{name}</span>
             </div>
             <button className="copy-button">Copy</button>
-            <span className="see-more">More</span>
+            {/*이걸클릭했는데 clippath 되는  event propagation현상을 막으려고*/}
+            <Link to={moreUrl} onClick={e => e.stopPropagation()}>
+              <span className="see-more">More</span>
+            </Link>
           </div>
         </div>
       </CopyToClipboard>

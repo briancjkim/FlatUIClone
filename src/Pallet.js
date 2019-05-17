@@ -23,10 +23,15 @@ export class Pallet extends Component {
     });
   }
   render() {
-    const { colors, paletteName, emoji } = this.props.pallet;
+    const { colors, paletteName, emoji, id: palletId } = this.props.pallet;
     const { level, format } = this.state;
     const colorBoxes = colors[level].map(c => (
-      <ColorBox key={c.id} background={c[format]} name={c.name} />
+      <ColorBox
+        key={c.id}
+        background={c[format]}
+        name={c.name}
+        moreUrl={`/pallet/${palletId}/${c.id}`}
+      />
     ));
     return (
       <div className="Pallet">

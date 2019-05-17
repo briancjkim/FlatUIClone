@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import MiniPallet from "./MiniPallet";
 import { withStyles } from "@material-ui/styles";
 
@@ -35,9 +34,15 @@ const styles = {
 };
 
 export class PalletList extends Component {
+  goToPallet(id) {
+    // Link로 페이지이동 안하는이유 default link text style이 글자에 다밑줄쳐서
+    this.props.history.push(`/pallet/${id}`);
+  }
   render() {
     const { pallets, classes } = this.props;
-    const list = pallets.map(pallet => <MiniPallet {...pallet} />);
+    const list = pallets.map(pallet => (
+      <MiniPallet {...pallet} handleClick={() => this.goToPallet(pallet.id)} />
+    ));
     return (
       <div className={classes.root}>
         <div className={classes.container}>
