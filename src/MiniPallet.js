@@ -2,14 +2,45 @@ import React from "react";
 import { withStyles } from "@material-ui/styles";
 
 const styles = {
-  main: {
-    backgroundColor: "red"
+  root: {
+    backgroundColor: "white",
+    border: "1px solid black",
+    borderRadius: "5px",
+    padding: "0.5rem",
+    position: "relative",
+    overflow: "hidden",
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
+  colors: {
+    backgroundColor: "grey"
+  },
+  title: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: "0",
+    color: "black",
+    paddingTop: "0.5rem",
+    fontSize: "1rem",
+    position: "relative"
+  },
+  emoji: {
+    fontSize: "1.5rem",
+    marginLeft: "0,5rem"
   }
 };
 function MiniPallet(props) {
   // props에 classes항목이 추가된다
-  console.log(props.classes);
-  const { classes } = props;
-  return <div className={classes.main}>minipallet</div>;
+  const { classes, paletteName, emoji } = props;
+  return (
+    <div className={classes.root}>
+      <div className={classes.colors}>colors</div>
+      <h5 className={classes.title}>
+        {paletteName} <span className={classes.emoji}>{emoji}</span>
+      </h5>
+    </div>
+  );
 }
 export default withStyles(styles)(MiniPallet);
