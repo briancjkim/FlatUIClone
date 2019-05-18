@@ -24,7 +24,7 @@ export default class ColorBox extends Component {
     );
   }
   render() {
-    const { name, background, moreUrl } = this.props;
+    const { name, background, moreUrl, showMore } = this.props;
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.handleCopy}>
@@ -42,10 +42,13 @@ export default class ColorBox extends Component {
               <span>{name}</span>
             </div>
             <button className="copy-button">Copy</button>
+            {/* showMore 은 SingPallet에서 more버튼없고 그냥 Pallet에서는 있게하려고 */}
             {/*이걸클릭했는데 clippath 되는  event propagation현상을 막으려고*/}
-            <Link to={moreUrl} onClick={e => e.stopPropagation()}>
-              <span className="see-more">More</span>
-            </Link>
+            {showMore && (
+              <Link to={moreUrl} onClick={e => e.stopPropagation()}>
+                <span className="see-more">More</span>
+              </Link>
+            )}
           </div>
         </div>
       </CopyToClipboard>

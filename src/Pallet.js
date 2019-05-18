@@ -31,6 +31,7 @@ export class Pallet extends Component {
         background={c[format]}
         name={c.name}
         moreUrl={`/pallet/${palletId}/${c.id}`}
+        showMore={true}
       />
     ));
     return (
