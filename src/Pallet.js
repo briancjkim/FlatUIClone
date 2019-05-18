@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
-
+import PalletFooter from "./PalletFooter";
 import "./Pallet.css";
 
 export class Pallet extends Component {
@@ -40,9 +40,10 @@ export class Pallet extends Component {
           level={level}
           handleChangeFormat={this.handleChangeFormat}
           handleChangeLevel={this.handleChangeLevel}
+          isAllPallet
         />
         <div className="Pallet-colors"> {colorBoxes}</div>
-        <footer className="Pallet-footer">{paletteName}</footer>
+        <PalletFooter paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }

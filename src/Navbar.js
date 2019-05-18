@@ -33,24 +33,26 @@ class Navbar extends React.Component {
     });
   }
   render() {
-    const { level, handleChangeLevel } = this.props;
+    const { level, handleChangeLevel, isAllPallet } = this.props;
     return (
       <header className="Navbar">
         <div className="logo">
           <Link to="/">Chanjong's Color</Link>
         </div>
-        <div className="slider-container">
-          <span>level: {level}</span>
-          <div className="slider">
-            <Slider
-              defaultValue={level}
-              onChange={handleChangeLevel}
-              min={100}
-              max={900}
-              step={100}
-            />
+        {isAllPallet && (
+          <div className="slider-container">
+            <span>level: {level}</span>
+            <div className="slider">
+              <Slider
+                defaultValue={level}
+                onChange={handleChangeLevel}
+                min={100}
+                max={900}
+                step={100}
+              />
+            </div>
           </div>
-        </div>
+        )}
         <div className="select-container">
           <Select value={this.state.format} onChange={this.handleChangeFormat}>
             <MenuItem value="hex">HEX - #ffffff</MenuItem>

@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import ColorBox from "./ColorBox";
+import Navbar from "./Navbar";
+import PalletFooter from "./PalletFooter";
 
 export class SinglePallet extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      format: "hex"
+    };
+    this.handleChangeFormat = this.handleChangeFormat.bind(this);
     // super에는 props만주고 local variable에는 this.props로 준다
     this._colors = this.generateShades(this.props.pallet, this.props.colorId);
   }
-
   generateShades(pallet, colorIdToSearch) {
     let colors = [];
     const allColors = pallet.colors;
@@ -21,18 +26,31 @@ export class SinglePallet extends Component {
     // slidce(begin,end) (end not included)
     return colors.slice(1);
   }
+
+  handleChangeFormat(value) {
+    this.setState({
+      format: value
+    });
+  }
   render() {
+    const { format } = this.state;
+    const { paletteName, emoji } = this.props.pallet;
     const colorBoxes = this._colors.map(color => (
       <ColorBox
         key={color.name}
-        background={color.hex}
+        background={color[format]}
         name={color.name}
         showMore={false}
       />
     ));
     return (
       <div className="Pallet">
+        <Navbar
+          handleChangeFormat={this.handleChangeFormat}
+          isAllPallet={false}
+        />
         <div className="Pallet-colors">{colorBoxes}</div>
+        <PalletFooter paletteName={paletteName} emoji={emoji} />
       </div>
     );
   }
