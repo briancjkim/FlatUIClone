@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MiniPallet from "./MiniPallet";
 import { withStyles } from "@material-ui/styles";
-
+import { Link } from "react-router-dom";
 const styles = {
   root: {
     backgroundColor: "blue",
@@ -22,7 +22,12 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    fontSize: "1.5rem"
+    fontSize: "1.5rem",
+    color: "white",
+    "& a": {
+      textDecoration: "none",
+      color: "white"
+    }
   },
   pallets: {
     boxSizing: "border-box",
@@ -41,13 +46,18 @@ export class PalletList extends Component {
   render() {
     const { pallets, classes } = this.props;
     const list = pallets.map(pallet => (
-      <MiniPallet {...pallet} handleClick={() => this.goToPallet(pallet.id)} />
+      <MiniPallet
+        key={pallet.id}
+        {...pallet}
+        handleClick={() => this.goToPallet(pallet.id)}
+      />
     ));
     return (
       <div className={classes.root}>
         <div className={classes.container}>
           <nav className={classes.nav}>
             <h1>Chanjong Color</h1>
+            <Link to="/pallet/new">Create Palette</Link>
           </nav>
           <div className={classes.pallets}>{list}</div>
         </div>

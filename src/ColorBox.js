@@ -37,7 +37,7 @@ export default class ColorBox extends Component {
             style={{ background }}
           />
           <div className={`copy-msg ${copied && "show"}`}>
-            <h1 className={isLightColor && "dark-text"}>Copied</h1>
+            <h1>Copied</h1>
             <p className={isLightColor && "dark-text"}>{background}</p>
           </div>
           <div className="copy-container">

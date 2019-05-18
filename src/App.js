@@ -5,6 +5,7 @@ import { generatePallet } from "./colorHelpers";
 import { Route, Switch } from "react-router-dom";
 import PalletList from "./PalletList";
 import SinglePallet from "./SinglePallet";
+import NewPalletForm from "./NewPalletForm";
 
 class App extends React.Component {
   // find pallet with id and pass to component as props in route.
@@ -15,6 +16,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch>
+          <Route exact path="/pallet/new" render={() => <NewPalletForm />} />
           <Route
             exact
             path="/"
