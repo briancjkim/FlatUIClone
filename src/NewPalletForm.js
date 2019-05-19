@@ -120,7 +120,11 @@ export class NewPalletForm extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
+  deleteColor(name) {
+    this.setState({
+      colors: this.state.colors.filter(color => color.name !== name)
+    });
+  }
   savePallet() {
     // 여기서 만든 컬러들과 이름 아이디를 APP부모컴포넌트로보낸다.
     const newName = this.state.palletName;
@@ -245,7 +249,11 @@ export class NewPalletForm extends Component {
         >
           <div className={classes.drawerHeader} />
           {this.state.colors.map(color => (
-            <DraggableColorBox color={color.color} name={color.name} />
+            <DraggableColorBox
+              color={color.color}
+              name={color.name}
+              handleClick={() => this.deleteColor(color.name)}
+            />
           ))}
         </main>
       </div>
