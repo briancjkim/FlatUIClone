@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MiniPallet from "./MiniPallet";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
+
 const styles = {
   root: {
     backgroundColor: "blue",
