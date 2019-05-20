@@ -3,18 +3,15 @@ import classNames from "classnames";
 import { ChromePicker } from "react-color";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
 import DraggableColorList from "./DraggableColorList";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { arrayMove } from "react-sortable-hoc";
+import PalletFormNav from "./PalletFormNav";
 
 const drawerWidth = 240;
 
@@ -77,28 +74,26 @@ const styles = theme => ({
 });
 
 export class NewPalletForm extends Component {
+  static defaultProps = {
+    maxColors: 20
+  };
   constructor(props) {
     super(props);
     this.state = {
       open: true,
       currentColor: "teal",
       colorName: "",
-      palletName: "",
-      colors: [{ color: "blue", name: "asd" }]
+      colors: this.props.pallets[0].colors
     };
     this.ChangeCurrentColor = this.ChangeCurrentColor.bind(this);
     this.addNewColor = this.addNewColor.bind(this);
     this.savePallet = this.savePallet.bind(this);
     this.deleteColor = this.deleteColor.bind(this);
+    this.clearColors = this.clearColors.bind(this);
+    this.addRandomColor = this.addRandomColor.bind(this);
   }
 
   componentDidMount() {
-    ValidatorForm.addValidationRule("isUniquePalletName", value => {
-      //return boolean
-      return this.props.pallets.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      );
-    });
     ValidatorForm.addValidationRule("isUniqueColorName", value => {
       //return boolean
       return this.state.colors.every(
@@ -128,14 +123,30 @@ export class NewPalletForm extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  clearColors() {
+    this.setState({
+      colors: []
+    });
+  }
+  addRandomColor() {
+    // nested array를 다풀어준다 depth로 변수를넣어주면 nested 의 nsted까지 풀어준다
+    const allColors = this.props.pallets.map(p => p.colors).flat();
+    let ranIndex = Math.floor(Math.random() * allColors.length);
+    this.setState({
+      colors: [...this.state.colors, allColors[ranIndex]]
+    });
+  }
+
   deleteColor(name) {
     this.setState({
       colors: this.state.colors.filter(color => color.name !== name)
     });
   }
-  savePallet() {
+
+  savePallet(palletName) {
     // 여기서 만든 컬러들과 이름 아이디를 APP부모컴포넌트로보낸다.
-    const newName = this.state.palletName;
+    const newName = palletName;
     const newPallet = {
       paletteName: newName,
       id: newName.toLowerCase().replace(/ /g, "-"),
@@ -144,6 +155,7 @@ export class NewPalletForm extends Component {
     this.props.savePallet(newPallet);
     this.props.history.push("/");
   }
+
   ChangeCurrentColor(color) {
     this.setState({
       currentColor: color.hex
@@ -161,45 +173,18 @@ export class NewPalletForm extends Component {
     });
   }
   render() {
-    const { classes, theme } = this.props;
-    const { open } = this.state;
-
+    const { classes, maxColors, pallets } = this.props;
+    const { open, colors } = this.state;
+    const palletIsFull = colors.length >= maxColors;
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          color="default"
-          className={classNames(classes.appBar, {
-            [classes.appBarShift]: open
-          })}
-        >
-          <Toolbar disableGutters={!open}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Pick your colors
-            </Typography>
-            <ValidatorForm onSubmit={this.savePallet}>
-              <TextValidator
-                name="palletName"
-                value={this.state.palletName}
-                onChange={this.handleChange}
-                validators={["isUniquePalletName"]}
-                errorMessages={["PalletName is already taken"]}
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Save palette
-              </Button>
-            </ValidatorForm>
-          </Toolbar>
-        </AppBar>
+        <PalletFormNav
+          open={open}
+          classes={classes}
+          savePallet={this.savePallet}
+          pallets={pallets}
+          handleDrawerOpen={this.handleDrawerOpen}
+        />
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -217,10 +202,19 @@ export class NewPalletForm extends Component {
           <Divider />
           <Typography variant="h4">Design your Palette</Typography>
           <div>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.clearColors}
+            >
               Clear Palette
             </Button>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.addRandomColor}
+              disabled={palletIsFull}
+            >
               Random Color
             </Button>
           </div>
@@ -244,9 +238,12 @@ export class NewPalletForm extends Component {
               type="submit"
               variant="contained"
               color="primary"
-              style={{ backgroundColor: this.state.currentColor }}
+              style={{
+                backgroundColor: palletIsFull ? "grey" : this.state.currentColor
+              }}
+              disabled={palletIsFull}
             >
-              Add Color
+              {palletIsFull ? "Pallet is full" : "Add Color"}
             </Button>
           </ValidatorForm>
         </Drawer>
@@ -258,7 +255,7 @@ export class NewPalletForm extends Component {
           <div className={classes.drawerHeader} />
           {
             <DraggableColorList
-              colors={this.state.colors}
+              colors={colors}
               deleteColor={this.deleteColor}
               onSortEnd={this.onSortEnd}
               axis="xy"
