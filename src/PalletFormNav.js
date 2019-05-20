@@ -8,14 +8,17 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
 import Button from "@material-ui/core/Button";
+import PalletMetaForm from "./PalletMetaForm";
 
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-const drawerWidth = 240;
+const drawerWidth = 400;
 const styles = theme => ({
   root: {
     display: "flex"
+  },
+
+  hide: {
+    display: "none"
   },
   appBar: {
     flexDirection: "row",
@@ -38,30 +41,21 @@ const styles = theme => ({
     marginLeft: 12,
     marginRight: 20
   },
-  navBtns: {}
+  navBtns: {},
+
+  goBackLink: {
+    textDecoration: "none"
+  }
 });
 
 export class PalletFormNav extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      palletName: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {};
   }
-  componentDidMount() {
-    ValidatorForm.addValidationRule("isUniquePalletName", value => {
-      //return boolean
-      return this.props.pallets.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      );
-    });
-  }
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
+
   render() {
-    const { classes, open, savePallet, handleDrawerOpen } = this.props;
+    const { classes, open, savePallet, handleDrawerOpen, pallets } = this.props;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -86,21 +80,7 @@ export class PalletFormNav extends Component {
             </Typography>
           </Toolbar>
           <div className="navBtns">
-            <ValidatorForm onSubmit={() => savePallet(this.state.palletName)}>
-              <TextValidator
-                name="palletName"
-                value={this.state.palletName}
-                onChange={this.handleChange}
-                validators={["required", "isUniquePalletName"]}
-                errorMessages={[
-                  "Enter Palette Name",
-                  "PalletName is already taken"
-                ]}
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Save palette
-              </Button>
-            </ValidatorForm>
+            <PalletMetaForm savePallet={savePallet} pallets={pallets} />
 
             <Link to="/" className={classes.goBackLink}>
               <Button variant="contained" color="secondary">
