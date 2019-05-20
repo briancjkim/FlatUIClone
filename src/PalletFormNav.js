@@ -71,7 +71,7 @@ export class PalletFormNav extends Component {
               <Button type="submit" variant="contained" color="primary">
                 Save palette
               </Button>
-              <Link to="/">
+              <Link to="/" className={classes.goBackLink}>
                 <Button variant="contained" color="secondary">
                   Go Back
                 </Button>
