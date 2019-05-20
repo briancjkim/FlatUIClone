@@ -11,7 +11,7 @@ export class PalletMetaForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: true,
       palletName: ""
     };
     this.handleChange = this.handleChange.bind(this);
@@ -38,56 +38,49 @@ export class PalletMetaForm extends Component {
 
   render() {
     const { fullScreen, savePallet } = this.props;
+    const { palletName } = this.state;
 
     return (
-      <div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.handleClickOpen}
-        >
-          Open responsive dialog
-        </Button>
-        <Dialog
-          fullScreen={fullScreen}
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="responsive-dialog-title"
-        >
-          <DialogTitle id="responsive-dialog-title">
-            {"Use Google's location service?"}
-          </DialogTitle>
+      <Dialog
+        fullScreen={fullScreen}
+        open={this.state.open}
+        onClose={this.handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Choose a palette name"}
+        </DialogTitle>
+        <ValidatorForm onSubmit={() => savePallet(palletName)}>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
+              Please enter a name for your new beautiful palette. Make sure it's
+              unique!
             </DialogContentText>
-            <ValidatorForm onSubmit={() => savePallet(this.state.palletName)}>
-              <TextValidator
-                name="palletName"
-                value={this.state.palletName}
-                onChange={this.handleChange}
-                validators={["required", "isUniquePalletName"]}
-                errorMessages={[
-                  "Enter Palette Name",
-                  "PalletName is already taken"
-                ]}
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Save palette
-              </Button>
-            </ValidatorForm>
+
+            <TextValidator
+              label="Palette Name"
+              name="palletName"
+              value={palletName}
+              onChange={this.handleChange}
+              fullWidth
+              margin="normal"
+              validators={["required", "isUniquePalletName"]}
+              errorMessages={[
+                "Enter Palette Name",
+                "PalletName is already taken"
+              ]}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Disagree
+              Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+            <Button type="submit" variant="contained" color="primary">
+              Save palette
             </Button>
           </DialogActions>
-        </Dialog>
-      </div>
+        </ValidatorForm>
+      </Dialog>
     );
   }
 }

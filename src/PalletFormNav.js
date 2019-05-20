@@ -22,6 +22,7 @@ const styles = theme => ({
   },
   appBar: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
     height: "64px",
     transition: theme.transitions.create(["margin", "width"], {
@@ -41,8 +42,12 @@ const styles = theme => ({
     marginLeft: 12,
     marginRight: 20
   },
-  navBtns: {},
-
+  navBtns: {
+    marginRight: "1rem"
+  },
+  navBtn: {
+    margin: "0 0.5rem"
+  },
   goBackLink: {
     textDecoration: "none"
   }
@@ -51,7 +56,15 @@ const styles = theme => ({
 export class PalletFormNav extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showingForm: false
+    };
+    this.showForm = this.showForm.bind(this);
+  }
+  showForm() {
+    this.setState({
+      showingForm: true
+    });
   }
 
   render() {
@@ -76,19 +89,32 @@ export class PalletFormNav extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              Create your own palette
+              Drag and Drop colors and save
             </Typography>
           </Toolbar>
-          <div className="navBtns">
-            <PalletMetaForm savePallet={savePallet} pallets={pallets} />
-
+          <div className={classes.navBtns}>
             <Link to="/" className={classes.goBackLink}>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.navBtn}
+              >
                 Go Back
               </Button>
             </Link>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.showForm}
+              className={classes.navBtn}
+            >
+              Save
+            </Button>
           </div>
         </AppBar>
+        {this.state.showingForm && (
+          <PalletMetaForm savePallet={savePallet} pallets={pallets} />
+        )}
       </div>
     );
   }
