@@ -10,48 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import PalletMetaForm from "./PalletMetaForm";
-
-const drawerWidth = 400;
-const styles = theme => ({
-  root: {
-    display: "flex"
-  },
-
-  hide: {
-    display: "none"
-  },
-  appBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: "64px",
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 20
-  },
-  navBtns: {
-    marginRight: "1rem"
-  },
-  navBtn: {
-    margin: "0 0.5rem"
-  },
-  goBackLink: {
-    textDecoration: "none"
-  }
-});
+import styles from "./styles/PalletFormNavStyles";
 
 export class PalletFormNav extends Component {
   constructor(props) {
@@ -60,10 +19,16 @@ export class PalletFormNav extends Component {
       showingForm: false
     };
     this.showForm = this.showForm.bind(this);
+    this.hideForm = this.hideForm.bind(this);
   }
   showForm() {
     this.setState({
       showingForm: true
+    });
+  }
+  hideForm() {
+    this.setState({
+      showingForm: false
     });
   }
 
@@ -113,7 +78,11 @@ export class PalletFormNav extends Component {
           </div>
         </AppBar>
         {this.state.showingForm && (
-          <PalletMetaForm savePallet={savePallet} pallets={pallets} />
+          <PalletMetaForm
+            savePallet={savePallet}
+            pallets={pallets}
+            hideForm={this.hideForm}
+          />
         )}
       </div>
     );
