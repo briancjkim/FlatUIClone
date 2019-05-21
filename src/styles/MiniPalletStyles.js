@@ -34,7 +34,7 @@ const styles = {
   },
   emoji: {
     fontSize: "1.5rem",
-    marginLeft: "0,5rem"
+    marginLeft: "0.5rem"
   },
   miniColor: {
     width: "20%",

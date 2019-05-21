@@ -10,11 +10,12 @@ export class PalletList extends Component {
     this.props.history.push(`/pallet/${id}`);
   }
   render() {
-    const { pallets, classes } = this.props;
+    const { pallets, classes, deletePallet } = this.props;
     const list = pallets.map(pallet => (
       <MiniPallet
         key={pallet.id}
         {...pallet}
+        deletePallet={deletePallet}
         handleClick={() => this.goToPallet(pallet.id)}
       />
     ));

@@ -16,10 +16,19 @@ class App extends React.Component {
       pallets: savedPallets || seedColors
     };
     this.savePallet = this.savePallet.bind(this);
+    this.deletePallet = this.deletePallet.bind(this);
   }
   // find pallet with id and pass to component as props in route.
   findPallet(id) {
     return this.state.pallets.find(pallet => pallet.id === id);
+  }
+  deletePallet(id) {
+    this.setState(
+      st => ({
+        pallets: st.pallets.filter(pallet => pallet.id !== id)
+      }),
+      this.syncLocalStorage
+    );
   }
   savePallet(newPallet) {
     // newPallet컴포넌트로 들어가서 새로운pallet정보를가져오고 state에추가한다
@@ -53,7 +62,11 @@ class App extends React.Component {
             exact
             path="/"
             render={routeProps => (
-              <PalletList pallets={this.state.pallets} {...routeProps} />
+              <PalletList
+                pallets={this.state.pallets}
+                deletePallet={this.deletePallet}
+                {...routeProps}
+              />
             )}
           />
           <Route
