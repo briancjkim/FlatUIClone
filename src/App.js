@@ -10,8 +10,10 @@ import NewPalletForm from "./NewPalletForm";
 class App extends React.Component {
   constructor(props) {
     super(props);
+    const savedPallets = JSON.parse(localStorage.getItem("pallets"));
+    // localstorage에서 pallet이없으면 seedColors사용
     this.state = {
-      pallets: [...seedColors]
+      pallets: savedPallets || seedColors
     };
     this.savePallet = this.savePallet.bind(this);
   }
@@ -21,9 +23,16 @@ class App extends React.Component {
   }
   savePallet(newPallet) {
     // newPallet컴포넌트로 들어가서 새로운pallet정보를가져오고 state에추가한다
-    this.setState({
-      pallets: [...this.state.pallets, newPallet]
-    });
+    // 새로운팔렛을 state에저장하고 그뒤에 state를 localstorage에 저장한다.
+    this.setState(
+      {
+        pallets: [...this.state.pallets, newPallet]
+      },
+      this.syncLocalStorage
+    );
+  }
+  syncLocalStorage() {
+    localStorage.setItem("pallets", JSON.stringify(this.state.pallets));
   }
   render() {
     return (

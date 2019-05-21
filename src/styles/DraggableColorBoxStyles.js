@@ -11,7 +11,8 @@ const styles = {
       transform: "scale(1.5)",
       color: "white"
     },
-    marginTop: "-4px"
+    fontSize: "1.2rem"
+    // marginTop: "-4px"instead fontsize:0 to parentComponent
   },
   contentBox: {
     position: "absolute",
@@ -23,7 +24,7 @@ const styles = {
     justifyContent: "space-between",
     width: "100%",
     alignItems: "center",
-    fontSize: "12px",
+
     textTransform: "uppercase",
     padding: "10px"
   },

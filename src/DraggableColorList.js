@@ -5,7 +5,7 @@ import React from "react";
 
 const DraggableColorList = SortableContainer(({ colors, deleteColor }) => {
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100%", fontSize: 0 }}>
       {colors.map((color, index) => (
         <DraggableColorBox
           key={index}
