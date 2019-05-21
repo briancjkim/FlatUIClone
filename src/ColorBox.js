@@ -38,20 +38,22 @@ export default class ColorBox extends Component {
           />
           <div className={`copy-msg ${copied && "show"}`}>
             <h1>Copied</h1>
-            <p className={isLightColor && "dark-text"}>{background}</p>
+            <p className={isLightColor ? "dark-text" : ""}>{background}</p>
           </div>
           <div className="copy-container">
             <div className="box-content">
-              <span className={isDarkColor && "light-text"}>{name}</span>
+              <span className={isDarkColor ? "light-text" : ""}>{name}</span>
             </div>
-            <button className={`copy-button  ${isLightColor && "dark-text"} `}>
+            <button
+              className={`copy-button  ${isLightColor ? "dark-text" : ""} `}
+            >
               Copy
             </button>
             {/* showMore 은 SingPallet에서 more버튼없고 그냥 Pallet에서는 있게하려고 */}
             {/*이걸클릭했는데 clippath 되는  event propagation현상을 막으려고*/}
             {showMore && (
               <Link to={moreUrl} onClick={e => e.stopPropagation()}>
-                <span className={`see-more ${isLightColor && "dark-text"}`}>
+                <span className={`see-more ${isLightColor ? "dark-text" : ""}`}>
                   More
                 </span>
               </Link>

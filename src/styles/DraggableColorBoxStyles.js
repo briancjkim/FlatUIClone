@@ -11,7 +11,7 @@ const styles = {
       transform: "scale(1.5)",
       color: "white"
     },
-    marginTop: "-3.5px"
+    marginTop: "-4px"
   },
   contentBox: {
     position: "absolute",

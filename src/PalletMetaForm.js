@@ -8,7 +8,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { withStyles } from "@material-ui/core/styles";
 
+const styles = {
+  dialog: {
+    "& p": {
+      fontSize: "1.2rem "
+    }
+  }
+};
 export class PalletMetaForm extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +59,7 @@ export class PalletMetaForm extends Component {
     this.props.savePallet({ paletteName, emoji });
   }
   render() {
-    const { fullScreen, hideForm } = this.props;
+    const { fullScreen, hideForm, classes } = this.props;
     const { palletName, stage } = this.state;
 
     return (
@@ -67,6 +75,7 @@ export class PalletMetaForm extends Component {
           open={stage === "form"}
           onClose={hideForm}
           aria-labelledby="responsive-dialog-title"
+          className={classes.dialog}
         >
           <DialogTitle id="responsive-dialog-title">
             {"Choose a palette name"}
@@ -106,4 +115,4 @@ export class PalletMetaForm extends Component {
   }
 }
 
-export default PalletMetaForm;
+export default withStyles(styles)(PalletMetaForm);

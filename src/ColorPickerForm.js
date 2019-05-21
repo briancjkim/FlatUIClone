@@ -12,9 +12,18 @@ const styles = {
     width: "100% !important",
     marginTop: "2rem"
   },
+  form: {
+    "& p": {
+      fontSize: "1rem !important"
+    }
+  },
   colorNameInput: {
     width: "100%",
-    height: "70px"
+    height: "70px",
+    fontSize: "1rem",
+    "& input": {
+      padding: "2rem"
+    }
   },
   addColor: {
     width: "100%",
@@ -76,7 +85,11 @@ export class ColorPickerForm extends Component {
           onChangeComplete={color => this.ChangeCurrentColor(color)}
           className={classes.picker}
         />
-        <ValidatorForm onSubmit={this.handleSubmit} ref="form">
+        <ValidatorForm
+          onSubmit={this.handleSubmit}
+          ref="form"
+          className={classes.form}
+        >
           <TextValidator
             name="colorName"
             variant="filled"

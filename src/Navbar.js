@@ -54,10 +54,20 @@ class Navbar extends React.Component {
           </div>
         )}
         <div className="select-container">
-          <Select value={this.state.format} onChange={this.handleChangeFormat}>
-            <MenuItem value="hex">HEX - #ffffff</MenuItem>
-            <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
-            <MenuItem value="rgba">RGBA - rgba(255,255,255,1.0)</MenuItem>
+          <Select
+            value={this.state.format}
+            onChange={this.handleChangeFormat}
+            className="select"
+          >
+            <MenuItem value="hex" className="select-item">
+              HEX - #ffffff
+            </MenuItem>
+            <MenuItem value="rgb" className="select-item">
+              RGB - rgb(255,255,255)
+            </MenuItem>
+            <MenuItem value="rgba" className="select-item">
+              RGBA - rgba(255,255,255,1.0)
+            </MenuItem>
           </Select>
         </div>
         <Snackbar

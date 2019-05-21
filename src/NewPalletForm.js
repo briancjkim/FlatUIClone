@@ -8,7 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
 import DraggableColorList from "./DraggableColorList";
-import { arrayMove } from "react-sortable-hoc";
+// not supported by sortable-hoc anymore
+import arrayMove from "array-move";
 import PalletFormNav from "./PalletFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import styles from "./styles/NewPalletFormStyles";
@@ -92,7 +93,6 @@ export class NewPalletForm extends Component {
       <div className={classes.root}>
         <PalletFormNav
           open={open}
-          classes={classes}
           savePallet={this.savePallet}
           pallets={pallets}
           handleDrawerOpen={this.handleDrawerOpen}
