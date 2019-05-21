@@ -1,9 +1,10 @@
 .Pallet {
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   /* scale커지면서 생기는 스크롤바 없애기 */
-  overflow: hidden;
+  overflow: auto;
 }
 .Pallet-colors {
   height: 90%;

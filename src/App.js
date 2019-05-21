@@ -6,6 +6,8 @@ import { Route, Switch } from "react-router-dom";
 import PalletList from "./PalletList";
 import SinglePallet from "./SinglePallet";
 import NewPalletForm from "./NewPalletForm";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -45,57 +47,71 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
-        <Switch>
-          <Route
-            exact
-            path="/pallet/new"
-            render={routeProps => (
-              <NewPalletForm
-                savePallet={this.savePallet}
-                pallets={this.state.pallets}
-                {...routeProps}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/"
-            render={routeProps => (
-              <PalletList
-                pallets={this.state.pallets}
-                deletePallet={this.deletePallet}
-                {...routeProps}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/pallet/:id"
-            render={routeProps => (
-              <Pallet
-                pallet={generatePallet(
-                  this.findPallet(routeProps.match.params.id)
-                )}
-                {...routeProps}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/pallet/:palletId/:colorId"
-            render={routeProps => (
-              <SinglePallet
-                pallet={generatePallet(
-                  this.findPallet(routeProps.match.params.palletId)
-                )}
-                colorId={routeProps.match.params.colorId}
-                {...routeProps}
-              />
-            )}
-          />
-        </Switch>
-      </div>
+      <Route
+        render={({ location }) => (
+          <TransitionGroup>
+            <CSSTransition key={location.key} classNames="fade" timeout={500}>
+              <Switch location={location}>
+                <Route
+                  exact
+                  path="/pallet/new"
+                  render={routeProps => (
+                    <div className="page">
+                      <NewPalletForm
+                        savePallet={this.savePallet}
+                        pallets={this.state.pallets}
+                        {...routeProps}
+                      />
+                    </div>
+                  )}
+                />
+                <Route
+                  exact
+                  path="/"
+                  render={routeProps => (
+                    <div className="page">
+                      <PalletList
+                        pallets={this.state.pallets}
+                        deletePallet={this.deletePallet}
+                        {...routeProps}
+                      />
+                    </div>
+                  )}
+                />
+                <Route
+                  exact
+                  path="/pallet/:id"
+                  render={routeProps => (
+                    <div className="page">
+                      <Pallet
+                        pallet={generatePallet(
+                          this.findPallet(routeProps.match.params.id)
+                        )}
+                        {...routeProps}
+                      />
+                    </div>
+                  )}
+                />
+                <Route
+                  exact
+                  path="/pallet/:palletId/:colorId"
+                  render={routeProps => (
+                    <div className="page">
+                      <SinglePallet
+                        pallet={generatePallet(
+                          this.findPallet(routeProps.match.params.palletId)
+                        )}
+                        colorId={routeProps.match.params.colorId}
+                        {...routeProps}
+                      />
+                    </div>
+                  )}
+                />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        )}
+      />
     );
   }
   // <Pallet {...routeProps} pallet={generatePallet(seedColors[4])} />
