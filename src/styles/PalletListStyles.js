@@ -2,7 +2,8 @@ import sizes from "./sizes";
 import bg from "./bg.svg";
 
 const styles = {
-  // palletList-.item-exit-active 이런식말고 .item-axit-active로 표현해야할때
+  // palletList-.item-exit-active 이런식말고 classname을 library에서 쓴 그대로를 refer하고싶을때
+  //.item-axit-active로 표현해야할때
   // @global기능을쓰면 사용할수있다.
   "@global": {
     ".fade-exit": {
@@ -17,7 +18,7 @@ const styles = {
     /* background by SVGBackgrounds.com */
     backgroundColor: "#0daf30",
     backgroundImage: `url(${bg})`,
-    overflow: "scroll",
+    overflow: "auto",
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -29,6 +30,7 @@ const styles = {
     alignItems: "flex-start",
     flexDirection: "column",
     flexWrap: "wrap",
+    // mediaquery를 사이즈변수에따라 다른값이나오도록 함수로만들었다.
     [sizes.down("xl")]: {
       width: "80%"
     },

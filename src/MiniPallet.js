@@ -10,7 +10,8 @@ class MiniPallet extends React.Component {
   }
   deletePallet(e) {
     e.stopPropagation();
-    this.props.deletePallet(this.props.id);
+    // openDialog 가 id를 가져간다
+    this.props.openDialog(this.props.id);
   }
   render() {
     // props에 classes항목이 추가된다

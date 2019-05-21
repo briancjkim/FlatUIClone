@@ -152,6 +152,7 @@ export class NewPalletForm extends Component {
               deleteColor={this.deleteColor}
               onSortEnd={this.onSortEnd}
               axis="xy"
+              distance={20}
             />
           }
         </main>

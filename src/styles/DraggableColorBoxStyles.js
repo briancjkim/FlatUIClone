@@ -6,7 +6,7 @@ const styles = {
     positoin: "relative",
     display: "inline-block",
     margin: "0 auto",
-    curosr: "pointer",
+    cursor: "pointer",
     position: "relative",
     "&:hover $deleteIcon": {
       transform: "scale(1.5)",
