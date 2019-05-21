@@ -17,6 +17,7 @@ const styles = {
     }
   }
 };
+
 export class PalletMetaForm extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +58,9 @@ export class PalletMetaForm extends Component {
     const paletteName = this.state.palletName;
     // seedColos에서 paletteName으로되어있으니 그대로해줘야된다
     this.props.savePallet({ paletteName, emoji });
+    this.setState({
+      stage: ""
+    });
   }
   render() {
     const { fullScreen, hideForm, classes } = this.props;
@@ -68,7 +72,7 @@ export class PalletMetaForm extends Component {
           <DialogTitle id="responsive-dialog-title">
             {"Choose a palette emoji"}
           </DialogTitle>
-          <Picker title="Pick your emoji…" onSelect={this.handleSubmit} />
+          <Picker title="Pick your eoji…" onSelect={this.handleSubmit} />
         </Dialog>
         <Dialog
           fullScreen={fullScreen}

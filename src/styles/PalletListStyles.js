@@ -6,13 +6,6 @@ const styles = {
   //.item-axit-active로 표현해야할때
   // @global기능을쓰면 사용할수있다.
   "@global": {
-    ".fade-enter": {
-      opacity: 0
-    },
-    ".fade-enter-active": {
-      opacity: 1,
-      transition: "opacity 500ms ease-out"
-    },
     ".fade-exit": {
       opacity: 1
     },
