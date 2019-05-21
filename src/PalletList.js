@@ -3,6 +3,7 @@ import MiniPallet from "./MiniPallet";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import styles from "./styles/PalletListStyles";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 export class PalletList extends Component {
   goToPallet(id) {
@@ -12,12 +13,15 @@ export class PalletList extends Component {
   render() {
     const { pallets, classes, deletePallet } = this.props;
     const list = pallets.map(pallet => (
-      <MiniPallet
-        key={pallet.id}
-        {...pallet}
-        deletePallet={deletePallet}
-        handleClick={() => this.goToPallet(pallet.id)}
-      />
+      // className 이아니라 classNames인것을 주의
+      <CSSTransition key={pallet.id} classNames="fade" timeout={500}>
+        <MiniPallet
+          key={pallet.id}
+          {...pallet}
+          deletePallet={deletePallet}
+          handleClick={() => this.goToPallet(pallet.id)}
+        />
+      </CSSTransition>
     ));
     return (
       <div className={classes.root}>
@@ -26,7 +30,7 @@ export class PalletList extends Component {
             <h1>Chanjong Color</h1>
             <Link to="/pallet/new">Create Palette</Link>
           </nav>
-          <div className={classes.pallets}>{list}</div>
+          <TransitionGroup className={classes.pallets}>{list}</TransitionGroup>
         </div>
       </div>
     );
