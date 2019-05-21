@@ -1,3 +1,5 @@
+import transitions from "@material-ui/core/styles/transitions";
+
 const styles = {
   root: {
     backgroundColor: "white",
@@ -6,8 +8,9 @@ const styles = {
     padding: "0.5rem",
     position: "relative",
     overflow: "hidden",
-    "&:hover": {
-      cursor: "pointer"
+    cursor: "pointer",
+    "&:hover $deleteIcon": {
+      opacity: "1"
     }
   },
   colors: {
@@ -39,6 +42,19 @@ const styles = {
     display: "inline-block",
     margin: "0 auto",
     position: "relative"
+  },
+  delete: {},
+  deleteIcon: {
+    color: "white",
+    width: "20px",
+    height: "20px",
+    position: "absolute",
+    backgroundColor: "#eb3d30",
+    right: "0px",
+    top: "0px",
+    padding: "2px",
+    zIndex: 10,
+    opacity: 0
   }
 };
 export default styles;
