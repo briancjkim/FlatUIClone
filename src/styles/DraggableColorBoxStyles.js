@@ -1,5 +1,12 @@
 import sizes from "./sizes";
+
+// passing props doesnt work
 const styles = {
+  "@global": {
+    ".dark": {
+      color: "white !important"
+    }
+  },
   root: {
     width: "20%",
     height: "25%",
@@ -31,13 +38,12 @@ const styles = {
     position: "absolute",
     bottom: "0",
     left: "0",
-    color: "rgba(0,0,0,.5)",
     letterSpacing: "1px",
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
     alignItems: "center",
-
+    color: "rgba(0,0,0,0.8)",
     textTransform: "uppercase",
     padding: "10px"
   },

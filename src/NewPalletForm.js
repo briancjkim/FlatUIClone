@@ -13,6 +13,7 @@ import arrayMove from "array-move";
 import PalletFormNav from "./PalletFormNav";
 import ColorPickerForm from "./ColorPickerForm";
 import styles from "./styles/NewPalletFormStyles";
+import seedColors from "./seedColors";
 
 export class NewPalletForm extends Component {
   static defaultProps = {
@@ -22,7 +23,7 @@ export class NewPalletForm extends Component {
     super(props);
     this.state = {
       open: true,
-      colors: this.props.pallets[0].colors
+      colors: seedColors[0].colors
     };
     this.addNewColor = this.addNewColor.bind(this);
     this.savePallet = this.savePallet.bind(this);
@@ -55,11 +56,32 @@ export class NewPalletForm extends Component {
     });
   }
   addRandomColor() {
-    // nested array를 다풀어준다 depth로 변수를넣어주면 nested 의 nsted까지 풀어준다
-    const allColors = this.props.pallets.map(p => p.colors).flat();
-    let ranIndex = Math.floor(Math.random() * allColors.length);
+    // flat() 함수는 nested array를 다풀어준다 depth로 변수를넣어주면 nested 의 nsted까지 풀어준다
+    // 바탕화면에 pallets이 다지워졌을때 이 함수를 실행하면 color가 undefined 인놈이 나와서 에러가된다
+
+    // random from Pallets that currently on localstorage
+    /*
+        const isEmpty = this.props.pallets.length <= 0;
+    const allColors = isEmpty
+      ? seedColors.map(p => p.colors).flat()
+      : this.props.pallets.map(p => p.colors).flat();
+      */
+
+    /* random from seedColors*/
+    const allColors = seedColors.map(p => p.colors).flat();
+
+    let randNewColor;
+    let isDuplicate = true;
+    while (isDuplicate) {
+      let ranIndex = Math.floor(Math.random() * allColors.length);
+      randNewColor = allColors[ranIndex];
+      // 중복색깔이아니라면 while문을통과 아니면 반복
+      isDuplicate = this.state.colors.some(
+        color => color.name === randNewColor.name
+      );
+    }
     this.setState({
-      colors: [...this.state.colors, allColors[ranIndex]]
+      colors: [...this.state.colors, randNewColor]
     });
   }
 
@@ -81,14 +103,14 @@ export class NewPalletForm extends Component {
 
   addNewColor(newColor) {
     this.setState({
-      colors: [...this.state.colors, newColor],
-      colorName: ""
+      colors: [...this.state.colors, newColor]
     });
   }
   render() {
     const { classes, maxColors, pallets } = this.props;
     const { open, colors } = this.state;
     const palletIsFull = colors.length >= maxColors;
+
     return (
       <div className={classes.root}>
         <PalletFormNav

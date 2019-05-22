@@ -1,4 +1,3 @@
-import sizes from "./sizes";
 import { DRAWER_WIDTH } from "../constant";
 
 // ToDo drawerwidth xs사이즈일때 낮춰야한데

@@ -28,6 +28,7 @@
   margin: 0 10px;
   display: inline-block;
 }
+
 @media (max-width: 576px) {
   .slider {
     width: 150px;

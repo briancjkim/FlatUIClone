@@ -24,6 +24,7 @@ export class PalletList extends Component {
       openDeleteDialog: false,
       palletId: ""
     };
+    this.goToPallet = this.goToPallet.bind(this);
   }
 
   goToPallet(id) {
@@ -50,17 +51,19 @@ export class PalletList extends Component {
   };
 
   render() {
-    const { pallets, classes, deletePallet } = this.props;
+    const { pallets, classes } = this.props;
     const { openDeleteDialog } = this.state;
     const list = pallets.map(pallet => (
       // className 이아니라 classNames인것을 주의
       //   deletePallet={deletePallet}
+      // goToPallet에서 arrowfunction을 그냥 callback으로 바꿔서
+      // arrowfunction 사용으로인한 무의미한 rendering을 줄였다.
       <CSSTransition key={pallet.id} classNames="fade" timeout={500}>
         <MiniPallet
           key={pallet.id}
           {...pallet}
           openDialog={this.openDialog}
-          handleClick={() => this.goToPallet(pallet.id)}
+          goToPallet={this.goToPallet}
         />
       </CSSTransition>
     ));

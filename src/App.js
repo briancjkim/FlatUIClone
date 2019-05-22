@@ -107,6 +107,18 @@ class App extends React.Component {
                     </Page>
                   )}
                 />
+                {/* 404 page */}
+                <Route
+                  render={routeProps => (
+                    <Page>
+                      <PalletList
+                        pallets={this.state.pallets}
+                        deletePallet={this.deletePallet}
+                        {...routeProps}
+                      />
+                    </Page>
+                  )}
+                />
               </Switch>
             </CSSTransition>
           </TransitionGroup>

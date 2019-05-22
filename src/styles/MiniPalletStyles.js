@@ -1,5 +1,3 @@
-import transitions from "@material-ui/core/styles/transitions";
-
 const styles = {
   root: {
     backgroundColor: "white",

@@ -74,6 +74,9 @@ export class ColorPickerForm extends Component {
       color: this.state.currentColor
     };
     this.props.addNewColor(newColor);
+    this.setState({
+      colorName: ""
+    });
   }
 
   render() {
@@ -89,6 +92,8 @@ export class ColorPickerForm extends Component {
           onSubmit={this.handleSubmit}
           ref="form"
           className={classes.form}
+          // form이 submit됬을때만 validate실행하는옵션
+          instantValidate={false}
         >
           <TextValidator
             name="colorName"
